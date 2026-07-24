@@ -68,6 +68,11 @@ async function main() {
     }
 
     if (entry.name === 'guestbook') {
+      const historicEntries = await page.locator('#guestbook-entries').innerText();
+      if (!historicEntries.includes('Adam Pode')) {
+        throw new Error('Historic guestbook entries were not seeded on the page.');
+      }
+
       await page.getByRole('button', { name: 'POST TO GUESTBOOK' }).click();
       await page.waitForFunction(
         () => document.getElementById('guestbook-status')?.textContent?.includes('Please enter your name.'),
