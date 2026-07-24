@@ -40,6 +40,18 @@ const pages = [
     titleIncludes: 'FAA',
     bodyIncludes: 'Fleet Air Arm Association',
   },
+  {
+    name: 'album',
+    path: '/Album/image1.html',
+    titleIncludes: 'Gallery: Image',
+    bodyIncludes: 'Gallery: Image',
+  },
+  {
+    name: 'notfound',
+    path: '/404.html',
+    titleIncludes: 'Page Not Found',
+    bodyIncludes: 'PAGE NOT FOUND',
+  },
 ];
 
 function slugify(input) {
@@ -65,6 +77,16 @@ async function main() {
     const response = await page.goto(targetUrl, { waitUntil: 'networkidle', timeout: 30000 });
     if (!response || !response.ok()) {
       throw new Error(`Failed to load ${targetUrl}: ${response ? response.status() : 'no response'}`);
+    }
+
+    const toolbarCount = await page.locator('#site-toolbar').count();
+    if (toolbarCount !== 1) {
+      throw new Error(`Site toolbar missing on ${entry.path}`);
+    }
+
+    const footerCount = await page.locator('#site-footer').count();
+    if (footerCount !== 1) {
+      throw new Error(`Site footer missing on ${entry.path}`);
     }
 
     if (entry.name === 'guestbook') {

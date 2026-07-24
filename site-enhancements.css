@@ -1,0 +1,119 @@
+body.site-enhanced {
+  overflow-x: hidden;
+}
+
+body.site-enhanced img,
+body.site-enhanced video,
+body.site-enhanced iframe,
+body.site-enhanced object,
+body.site-enhanced embed {
+  max-width: 100%;
+  height: auto;
+}
+
+body.site-enhanced table {
+  max-width: 100%;
+}
+
+body.site-enhanced td,
+body.site-enhanced th {
+  word-break: break-word;
+}
+
+body.site-enhanced #site-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 2px solid #800000;
+  background: rgba(255, 244, 234, 0.97);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+body.site-enhanced #site-toolbar .site-toolbar-inner,
+body.site-enhanced #site-footer .site-footer-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 10px 14px;
+}
+
+body.site-enhanced #site-toolbar .site-toolbar-title {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  color: #6d4a3e;
+  text-align: center;
+  margin: 0 0 8px 0;
+  letter-spacing: 0.03em;
+}
+
+body.site-enhanced #site-toolbar .site-toolbar-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 10px;
+}
+
+body.site-enhanced #site-toolbar a {
+  display: inline-block;
+  padding: 6px 10px;
+  border: 1px solid #800000;
+  border-radius: 999px;
+  color: #800000;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  text-decoration: none;
+  background: #fff8ef;
+}
+
+body.site-enhanced #site-toolbar a:hover,
+body.site-enhanced #site-toolbar a:focus {
+  background: #800000;
+  color: #fff8ef;
+}
+
+body.site-enhanced #site-toolbar a.is-current {
+  background: #800000;
+  color: #fff8ef;
+}
+
+body.site-enhanced #site-footer {
+  margin-top: 24px;
+  border-top: 1px solid rgba(128, 0, 0, 0.25);
+  background: rgba(255, 248, 239, 0.86);
+  color: #6d4a3e;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+}
+
+body.site-enhanced #site-footer p {
+  margin: 0;
+  text-align: center;
+}
+
+body.site-enhanced .site-mobile-note {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  body.site-enhanced #site-toolbar .site-toolbar-title {
+    font-size: 12px;
+  }
+
+  body.site-enhanced #site-toolbar a {
+    font-size: 11px;
+    padding: 5px 8px;
+  }
+
+  body.site-enhanced table[width] {
+    width: 100% !important;
+  }
+
+  body.site-enhanced .site-mobile-note {
+    display: block;
+    margin: 8px 12px 0;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #6d4a3e;
+    font-size: 11px;
+    text-align: center;
+  }
+}
