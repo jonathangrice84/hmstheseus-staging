@@ -25,11 +25,14 @@ jobs:
       - name: Run site checks
         run: node scripts/check-site.mjs http://127.0.0.1:4173/
 
+      - name: Install Playwright
+        run: npm install --no-save playwright
+
       - name: Install Playwright browsers
-        run: npx --yes playwright install --with-deps chromium
+        run: npx playwright install --with-deps chromium
 
       - name: Run browser smoke test
-        run: npx --yes -p playwright node scripts/browser-smoke.cjs http://127.0.0.1:4173/ browser-artifacts
+        run: node scripts/browser-smoke.cjs http://127.0.0.1:4173/ browser-artifacts
 
       - name: Upload browser artifacts
         if: always()
