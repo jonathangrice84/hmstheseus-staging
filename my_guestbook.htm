@@ -6,26 +6,370 @@
 <meta name="ProgId" content="FrontPage.Editor.Document">
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
 <title>My Guestbook</title>
+<style>
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #800000;
+  }
+
+  .guestbook-shell {
+    max-width: 980px;
+    margin: 0 auto;
+  }
+
+  .guestbook-panel {
+    background: #fff8ef;
+    border: 3px solid #800000;
+    padding: 16px;
+  }
+
+  .guestbook-note {
+    color: #5b3a2f;
+    font-size: 12pt;
+    line-height: 1.5;
+  }
+
+  .guestbook-form {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .guestbook-form td {
+    padding: 8px;
+    vertical-align: top;
+  }
+
+  .guestbook-form label {
+    font-weight: bold;
+  }
+
+  .guestbook-form input[type="text"],
+  .guestbook-form textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #800000;
+    background: #fffdf8;
+    color: #3a1f18;
+    font-size: 12pt;
+    padding: 8px;
+  }
+
+  .guestbook-form textarea {
+    min-height: 160px;
+    resize: vertical;
+  }
+
+  .guestbook-actions {
+    text-align: center;
+    padding-top: 10px;
+  }
+
+  .guestbook-button {
+    background: #800000;
+    color: #fff8ef;
+    border: 2px solid #5a0000;
+    padding: 10px 18px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+  }
+
+  .guestbook-button:hover {
+    background: #9b1111;
+  }
+
+  .guestbook-status {
+    margin-top: 12px;
+    font-size: 12pt;
+    min-height: 1.4em;
+  }
+
+  .guestbook-status.error {
+    color: #8b0000;
+  }
+
+  .guestbook-status.success {
+    color: #245c2c;
+  }
+
+  .guestbook-entries {
+    margin-top: 22px;
+  }
+
+  .guestbook-entry {
+    border-top: 1px solid #b97f6d;
+    padding: 14px 0;
+  }
+
+  .guestbook-entry h3 {
+    margin: 0 0 6px 0;
+    font-size: 13pt;
+    color: #800000;
+  }
+
+  .guestbook-entry .meta {
+    font-size: 10pt;
+    color: #6d4a3e;
+    margin-bottom: 8px;
+  }
+
+  .guestbook-entry p {
+    margin: 0;
+    white-space: pre-wrap;
+    color: #3a1f18;
+    line-height: 1.55;
+  }
+
+  .guestbook-small {
+    font-size: 10pt;
+    color: #6d4a3e;
+  }
+
+  .honeypot {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+  }
+</style>
 </head>
 
-<body background="images/WB00760L.GIF">
+<body bgcolor="#FFF4EA" background="images/WB00760L.GIF">
 
-<h1 align="center">&nbsp;</h1>
+<div class="guestbook-shell">
+  <p align="center">&nbsp;</p>
+  <p align="center">
+    <img border="0" src="Animatedimages/Book.gif" width="92" height="76">
+  </p>
+  <p align="center"><img border="0" src="images/chainlogo.gif" width="560" height="22"></p>
+  <p align="center"><font face="Arial" size="6" color="#800000"><b>SIGN THE GUESTBOOK</b></font></p>
+  <p align="center" class="guestbook-note">
+    Leave a respectful note for the ship's company, the archive, or the family.
+    Your entry is checked before it is added to the logbook.
+  </p>
 
-<h1 align="center"><font face="Arial" color="#800000"><b>PLEASE CLICK 
-BELOW TO SIGN MY GUESTBOOK</b></font></h1>
+  <div class="guestbook-panel">
+    <table class="guestbook-form" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="50%">
+          <form id="guestbook-form" autocomplete="off" novalidate>
+            <table class="guestbook-form" border="0" cellpadding="0" cellspacing="0">
+              <tr>
+                <td><label for="guestbook-name">Your name *</label></td>
+              </tr>
+              <tr>
+                <td><input id="guestbook-name" name="name" type="text" maxlength="60" placeholder="Bill Grice" required></td>
+              </tr>
+              <tr>
+                <td><label for="guestbook-location">Home port / connection</label></td>
+              </tr>
+              <tr>
+                <td><input id="guestbook-location" name="location" type="text" maxlength="80" placeholder="Liverpool, family of HMS Theseus"></td>
+              </tr>
+              <tr>
+                <td><label for="guestbook-message">Your message *</label></td>
+              </tr>
+              <tr>
+                <td><textarea id="guestbook-message" name="message" maxlength="500" minlength="20" placeholder="Share a memory, a thank-you, or a short note. Keep it civil and under 500 characters." required></textarea></td>
+              </tr>
+              <tr>
+                <td>
+                  <input id="guestbook-website" class="honeypot" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label>
+                    <input id="guestbook-consent" type="checkbox">
+                    I understand this entry will be shown publicly on the guestbook page.
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td class="guestbook-actions">
+                  <button class="guestbook-button" type="submit">POST TO GUESTBOOK</button>
+                </td>
+              </tr>
+            </table>
+          </form>
+          <div id="guestbook-status" class="guestbook-status"></div>
+          <p class="guestbook-small">
+            Checks: name required, message required, no HTML, no spam links, and a short cooldown between posts.
+          </p>
+        </td>
+        <td width="50%" valign="top">
+          <p align="center"><font face="Arial" size="4" color="#800000"><b>LOGBOOK ENTRIES</b></font></p>
+          <div id="guestbook-entries"></div>
+        </td>
+      </tr>
+    </table>
+  </div>
 
-<p align="center"><img border="0" src="images/chainlogo.gif" width="560" height="22"></p>
-<p align="center">
-<font face="Arial" size="5" color="#800000"><b>YOUR COMMENTS&nbsp;
-<!--Free Guestbook Net Code--> 
-ARE MUCH APPRECIATED.</b></font><p align="center">&nbsp;</p>
-<p align="center"><a href="http://users.smartgb.com/g/g.php?a=s&i=g11-03360-00">
-<img border="0" src="Animatedimages/click%20here.gif" width="100" height="68"></a></p>
+  <p align="center"><b><font face="Arial" color="#800000">THANKS FOR TAKING THE TIME TO SIGN THE SHIP'S BOOK</font></b></p>
+</div>
 
+<script>
+(function () {
+  var STORAGE_KEY = 'hmstheseus-guestbook-entries';
+  var LAST_POST_KEY = 'hmstheseus-guestbook-last-post';
+  var entriesEl = document.getElementById('guestbook-entries');
+  var statusEl = document.getElementById('guestbook-status');
+  var form = document.getElementById('guestbook-form');
+  var nameEl = document.getElementById('guestbook-name');
+  var locationEl = document.getElementById('guestbook-location');
+  var messageEl = document.getElementById('guestbook-message');
+  var consentEl = document.getElementById('guestbook-consent');
+  var websiteEl = document.getElementById('guestbook-website');
+  var lastEntryTimestamp = 0;
+
+  function escapeHtml(value) {
+    return String(value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function readEntries() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return [];
+      var parsed = JSON.parse(raw);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (error) {
+      return [];
+    }
+  }
+
+  function writeEntries(entries) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+  }
+
+  function setStatus(message, kind) {
+    statusEl.className = 'guestbook-status' + (kind ? ' ' + kind : '');
+    statusEl.textContent = message;
+  }
+
+  function clearStatus() {
+    statusEl.className = 'guestbook-status';
+    statusEl.textContent = '';
+  }
+
+  function looksLikeHtml(value) {
+    return /<[^>]+>/.test(value);
+  }
+
+  function countUrls(value) {
+    var match = value.match(/https?:\/\/\S+/gi);
+    return match ? match.length : 0;
+  }
+
+  function validate(fields) {
+    var errors = [];
+    var name = fields.name.trim();
+    var location = fields.location.trim();
+    var message = fields.message.trim();
+
+    if (fields.website.trim()) {
+      errors.push('Spam check failed.');
+    }
+
+    if (name.length < 2 || name.length > 60) {
+      errors.push('Please enter your name.');
+    } else if (!/^[A-Za-z0-9 .'"-]+$/.test(name)) {
+      errors.push('Names can only use letters, numbers, spaces, apostrophes, dots, and hyphens.');
+    }
+
+    if (location && location.length > 80) {
+      errors.push('Home port / connection is too long.');
+    }
+
+    if (message.length < 20) {
+      errors.push('Please write at least 20 characters.');
+    } else if (message.length > 500) {
+      errors.push('Please keep the message under 500 characters.');
+    } else if (looksLikeHtml(message)) {
+      errors.push('Please do not include HTML.');
+    } else if (countUrls(message) > 1) {
+      errors.push('Please keep links to one or none.');
+    }
+
+    if (!fields.consent) {
+      errors.push('Please tick the consent box.');
+    }
+
+    var now = Date.now();
+    var lastPosted = Number(localStorage.getItem(LAST_POST_KEY) || '0');
+    if (now - lastPosted < 30000) {
+      errors.push('Please wait a moment before posting again.');
+    }
+
+    return {
+      errors: errors,
+      normalized: {
+        name: name,
+        location: location,
+        message: message
+      }
+    };
+  }
+
+  function renderEntries() {
+    var entries = readEntries();
+    if (!entries.length) {
+      entriesEl.innerHTML = '<p class="guestbook-small">No entries yet. Be the first to sign the logbook.</p>';
+      return;
+    }
+
+    entriesEl.innerHTML = entries.map(function (entry) {
+      return [
+        '<div class="guestbook-entry">',
+        '<h3>' + escapeHtml(entry.name) + '</h3>',
+        '<div class="meta">' + escapeHtml(entry.timestamp) + (entry.location ? ' - ' + escapeHtml(entry.location) : '') + '</div>',
+        '<p>' + escapeHtml(entry.message) + '</p>',
+        '</div>'
+      ].join('');
+    }).join('');
+  }
+
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    clearStatus();
+
+    var result = validate({
+      name: nameEl.value,
+      location: locationEl.value,
+      message: messageEl.value,
+      consent: consentEl.checked,
+      website: websiteEl.value
+    });
+
+    if (result.errors.length) {
+      setStatus(result.errors[0], 'error');
+      return;
+    }
+
+    var entries = readEntries();
+    var entry = {
+      name: result.normalized.name,
+      location: result.normalized.location,
+      message: result.normalized.message,
+      timestamp: new Date().toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })
+    };
+
+    entries.unshift(entry);
+    writeEntries(entries.slice(0, 25));
+    localStorage.setItem(LAST_POST_KEY, String(Date.now()));
+    setStatus('Thank you. Your entry has been added to the logbook.', 'success');
+    form.reset();
+    renderEntries();
+    lastEntryTimestamp = Date.now();
+  });
+
+  renderEntries();
+})();
+</script>
 
 </body>
-
-</font>
 
 </html>

@@ -20,7 +20,7 @@ const pages = [
     name: 'guestbook',
     path: '/my_guestbook.htm',
     titleIncludes: 'My Guestbook',
-    bodyIncludes: 'PLEASE CLICK BELOW TO SIGN MY GUESTBOOK',
+    bodyIncludes: 'SIGN THE GUESTBOOK',
   },
   {
     name: 'tour',
@@ -65,6 +65,30 @@ async function main() {
     const response = await page.goto(targetUrl, { waitUntil: 'networkidle', timeout: 30000 });
     if (!response || !response.ok()) {
       throw new Error(`Failed to load ${targetUrl}: ${response ? response.status() : 'no response'}`);
+    }
+
+    if (entry.name === 'guestbook') {
+      await page.getByRole('button', { name: 'POST TO GUESTBOOK' }).click();
+      await page.waitForFunction(
+        () => document.getElementById('guestbook-status')?.textContent?.includes('Please enter your name.'),
+        { timeout: 5000 }
+      );
+
+      await page.fill('#guestbook-name', 'Jonny Grice');
+      await page.fill('#guestbook-location', 'London');
+      await page.fill('#guestbook-message', 'A respectful smoke-test entry for the HMS Theseus guestbook.');
+      await page.check('#guestbook-consent');
+      await page.getByRole('button', { name: 'POST TO GUESTBOOK' }).click();
+
+      await page.waitForFunction(
+        () => document.getElementById('guestbook-status')?.textContent?.includes('Thank you. Your entry has been added to the logbook.'),
+        { timeout: 5000 }
+      );
+
+      const entryText = await page.locator('#guestbook-entries .guestbook-entry').first().innerText();
+      if (!entryText.includes('Jonny Grice')) {
+        throw new Error('Guestbook entry did not render after submission.');
+      }
     }
 
     await page.screenshot({
