@@ -69,8 +69,16 @@ async function main() {
 
     if (entry.name === 'guestbook') {
       const historicEntries = await page.locator('#guestbook-archive').innerText();
-      if (!historicEntries.includes('Adam Pode')) {
+      if (!historicEntries.includes('Samantha Massey') || !historicEntries.includes('Adam Pode')) {
         throw new Error('Historic guestbook entries were not seeded on the page.');
+      }
+
+      const archiveNames = page.locator('#guestbook-archive .guestbook-entry h3');
+      const archiveCount = await archiveNames.count();
+      const firstArchiveName = await archiveNames.first().innerText();
+      const lastArchiveName = await archiveNames.nth(archiveCount - 1).innerText();
+      if (firstArchiveName !== 'Samantha Massey' || lastArchiveName !== 'Jenny Liddell') {
+        throw new Error(`Guestbook archive order is wrong: first=${firstArchiveName}, last=${lastArchiveName}`);
       }
 
       await page.getByRole('button', { name: 'POST TO GUESTBOOK' }).click();
