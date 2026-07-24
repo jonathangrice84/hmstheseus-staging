@@ -68,7 +68,7 @@ async function main() {
     }
 
     if (entry.name === 'guestbook') {
-      const historicEntries = await page.locator('#guestbook-entries').innerText();
+      const historicEntries = await page.locator('#guestbook-archive').innerText();
       if (!historicEntries.includes('Adam Pode')) {
         throw new Error('Historic guestbook entries were not seeded on the page.');
       }
