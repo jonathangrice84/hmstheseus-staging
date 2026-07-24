@@ -26,7 +26,7 @@ const pages = [
     name: 'tour',
     path: '/1947_tour.htm',
     titleIncludes: '1947',
-    bodyIncludes: '1947 TOUR',
+    bodyIncludes: 'FAR EASTERN TOUR',
   },
   {
     name: 'memoriam',
